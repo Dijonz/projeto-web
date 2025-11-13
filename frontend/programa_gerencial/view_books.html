@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerencial - Visualizar Livros</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <nav class="sidebar">
+        <h2>BIBLIOTECA</h2>
+        <p class="subtitle">Gerenciador</p>
+        <ul>
+            <li><a href="index.html">Cadastro de Livros</a></li>
+            <li><a href="view_books.html" class="active">Visualizar Livros</a></li>
+        </ul>
+    </nav>
+
+    <main class="content-area">
+        <h1>Visualizar Livros</h1>
+
+        <div class="books-wrapper">
+            <div id="loading" class="loading">Carregando livros...</div>
+            <div id="error" class="error" style="display: none;"></div>
+            <div id="books-container" class="books-container"></div>
+        </div>
+    </main>
+
+    <script src="view_books.js"></script>
+</body>
+</html>
+

@@ -1,0 +1,217 @@
+/* --- Reset Básico e Fontes --- */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa; /* Um cinza bem claro para o fundo */
+    display: flex; /* A MÁGICA: Coloca o menu ao lado do conteúdo */
+    min-height: 100vh;
+    color: #333;
+}
+
+/* --- 1. Layout do Menu Lateral (Sidebar) --- */
+.sidebar {
+    /* Define uma largura fixa para o menu */
+    flex: 0 0 250px; 
+    background-color: #ffffff;
+    border-right: 1px solid #ddd;
+    padding: 20px;
+}
+
+.sidebar h2 {
+    text-align: center;
+    margin-bottom: 5px;
+    color: #007bff;
+}
+
+.sidebar .subtitle {
+    text-align: center;
+    margin-bottom: 30px;
+    color: #666;
+    font-size: 14px;
+    font-weight: normal;
+}
+
+.sidebar ul {
+    list-style: none;
+}
+
+.sidebar ul li {
+    margin-bottom: 10px;
+}
+
+.sidebar ul li a {
+    text-decoration: none;
+    color: #555;
+    padding: 10px 15px;
+    display: block;
+    border-radius: 4px;
+    transition: background-color 0.2s ease;
+}
+
+.sidebar ul li a:hover {
+    background-color: #e9ecef; /* Cinza claro no hover */
+}
+
+/* Estilo do link da página ATIVA */
+.sidebar ul li a.active {
+    background-color: #007bff;
+    color: white;
+    font-weight: bold;
+}
+
+/* --- 2. Layout da Área de Conteúdo --- */
+.content-area {
+    /* Ocupa todo o resto do espaço */
+    flex: 1; 
+    padding: 40px;
+    
+    /* Centraliza o conteúdo na área */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.content-area h1 {
+    margin-bottom: 30px;
+    font-weight: 600;
+}
+
+/* --- 3. Estilo do Formulário (Reutilizado) --- */
+
+/* O "card" que segura o formulário */
+.form-wrapper {
+    width: 100%;
+    max-width: 700px; /* Um pouco mais largo para o cadastro de livro */
+    padding: 30px;
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+
+}
+
+.input-row {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+.input-row .input-group {
+    flex: 1;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+
+.input-group label {
+    margin-bottom: 5px;
+    font-weight: 500;
+    font-size: 14px;
+}
+
+.input-group input {
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+.btn-submit {
+    width: 25%;
+    padding: 12px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    margin: 0 auto;
+    display: block;
+}
+
+.btn-submit:hover {
+    background-color: #0056b3;
+}
+
+/* --- 4. Estilos para Visualizar Livros --- */
+
+.books-wrapper {
+    width: 100%;
+    max-width: 1200px;
+    padding: 30px;
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.loading {
+    text-align: center;
+    padding: 40px;
+    color: #666;
+    font-size: 16px;
+}
+
+.error {
+    background-color: #f8d7da;
+    color: #721c24;
+    padding: 15px;
+    border-radius: 4px;
+    margin-bottom: 20px;
+    border: 1px solid #f5c6cb;
+}
+
+.no-books {
+    text-align: center;
+    padding: 40px;
+    color: #666;
+    font-size: 16px;
+}
+
+.books-container {
+    width: 100%;
+    overflow-x: auto;
+}
+
+.books-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.books-table thead {
+    background-color: #6c757d;
+    color: white;
+}
+
+.books-table th {
+    padding: 12px;
+    text-align: left;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.books-table td {
+    padding: 12px;
+    border-bottom: 1px solid #ddd;
+    font-size: 14px;
+}
+
+.books-table tbody tr:hover {
+    background-color: #f8f9fa;
+}
+
+.books-table tbody tr:last-child td {
+    border-bottom: none;
+}

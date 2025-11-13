@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Biblioteca - Login e Registro</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="pagina-container">
+        <h1>Bem-vindo à <br/> Biblioteca</h1>
+
+        <div class="login-register-wrapper">
+            
+            <!-- Formulário de Login -->
+            <div class="form-container login-container">
+                <h2>Login</h2>
+                <form id="form-login">
+                    <div class="input-group">
+                        <label for="login-email">Email</label>
+                        <input
+                            id="login-email"
+                            type="email"
+                            required
+                        />
+                    </div>
+                    <div class="input-group">
+                        <label for="login-password">Senha</label>
+                        <input
+                            id="login-password"
+                            type="password"
+                            required
+                        />
+                    </div>
+                    <button type="submit" class="btn-submit">Entrar</button>
+                </form>
+            </div>
+
+            <!-- Divisor Visual -->
+            <div class="divisor-vertical"></div>
+
+            <!-- Formulário de Registro -->
+            <div class="form-container register-container">
+                <h2>Registro</h2>
+                <form id="form-register">
+                    <div class="input-group">
+                        <label for="reg-nome">Nome Completo</label>
+                        <input
+                            id="reg-nome"
+                            type="text"
+                            required
+                        />
+                    </div>
+                    <div class="input-group">
+                        <label for="reg-matricula">Matrícula</label>
+                        <input
+                            id="reg-matricula"
+                            type="text"
+                            required
+                        />
+                    </div>
+                    <div class="input-group">
+                        <label for="reg-email">Email</label>
+                        <input
+                            id="reg-email"
+                            type="email"
+                            required
+                        />
+                    </div>
+                    <div class="input-group">
+                        <label for="reg-password">Senha</label>
+                        <input
+                            id="reg-password"
+                            type="password"
+                            required
+                        />
+                    </div>
+                    <button type="submit" class="btn-submit">Registrar</button>
+                </form>
+            </div>
+
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
+
