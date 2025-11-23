@@ -50,9 +50,10 @@ PORT=3000
 - `sua_senha_do_mysql` pela sua senha do MySQL
 - `nome_da_sua_database` pelo nome do banco de dados que você criou
 
-### 4. Criar o banco de dados
+### 4. Criar o banco de dados e popular com dados de teste
 
 1. Abra o MySQL (via linha de comando ou MySQL Workbench)
+
 2. Crie o banco de dados:
 
 ```sql
@@ -60,66 +61,49 @@ CREATE DATABASE nome_da_sua_database;
 USE nome_da_sua_database;
 ```
 
-3. Execute os seguintes comandos SQL **na ordem apresentada** (respeitando as dependências de foreign keys):
+**⚠️ Importante:** Substitua `nome_da_sua_database` pelo nome que você configurou no arquivo `.env`
 
-```sql
--- 1. Tabela livro (sem dependências)
-CREATE TABLE `livro` (
-  `id_livro` int NOT NULL AUTO_INCREMENT,
-  `titulo` varchar(255) NOT NULL,
-  `autor` varchar(255) NOT NULL,
-  `editora` varchar(100) DEFAULT NULL,
-  `ano_publicacao` int DEFAULT NULL,
-  `isbn` varchar(13) DEFAULT NULL,
-  PRIMARY KEY (`id_livro`),
-  UNIQUE KEY `isbn` (`isbn`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+3. Execute o arquivo `mock_data.sql` que está na pasta `backend_api`:
 
--- 2. Tabela aluno (sem dependências)
-CREATE TABLE `aluno` (
-  `id_aluno` int NOT NULL AUTO_INCREMENT,
-  `nome_completo` varchar(200) NOT NULL,
-  `matricula` varchar(50) NOT NULL,
-  `email` varchar(100) NOT NULL,
-  `senha` varchar(255) NOT NULL,
-  `telefone` varchar(20) DEFAULT NULL,
-  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id_aluno`),
-  UNIQUE KEY `matricula` (`matricula`),
-  UNIQUE KEY `email` (`email`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+**Opção A: Via MySQL Workbench**
+- Abra o MySQL Workbench
+- Conecte-se ao servidor MySQL
+- Abra o arquivo `backend_api/mock_data.sql`
+- Antes de executar, descomente e ajuste as linhas 16-17 se necessário:
+  ```sql
+  CREATE DATABASE IF NOT EXISTS nome_da_sua_database;
+  USE nome_da_sua_database;
+  ```
+- Execute todo o script (Ctrl+Shift+Enter ou botão "Execute")
 
--- 3. Tabela exemplar (depende de livro)
-CREATE TABLE `exemplar` (
-  `id_exemplar` int NOT NULL AUTO_INCREMENT,
-  `id_livro` int NOT NULL,
-  `status` enum('disponivel','emprestado','manutencao','descartado') NOT NULL DEFAULT 'disponivel',
-  `codigo_barras` varchar(100) NOT NULL,
-  PRIMARY KEY (`id_exemplar`),
-  UNIQUE KEY `codigo_barras` (`codigo_barras`),
-  KEY `id_livro` (`id_livro`),
-  CONSTRAINT `exemplar_ibfk_1` FOREIGN KEY (`id_livro`) REFERENCES `livro` (`id_livro`) ON DELETE RESTRICT
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
--- 4. Tabela emprestimo (depende de aluno e exemplar)
-CREATE TABLE `emprestimo` (
-  `id_emprestimo` int NOT NULL AUTO_INCREMENT,
-  `id_aluno` int NOT NULL,
-  `id_exemplar` int NOT NULL,
-  `data_retirada` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `data_devolucao_prevista` date NOT NULL,
-  `data_devolucao_real` datetime DEFAULT NULL,
-  PRIMARY KEY (`id_emprestimo`),
-  KEY `id_aluno` (`id_aluno`),
-  KEY `id_exemplar` (`id_exemplar`),
-  CONSTRAINT `emprestimo_ibfk_1` FOREIGN KEY (`id_aluno`) REFERENCES `aluno` (`id_aluno`),
-  CONSTRAINT `emprestimo_ibfk_2` FOREIGN KEY (`id_exemplar`) REFERENCES `exemplar` (`id_exemplar`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+**Opção B: Via linha de comando**
+```bash
+mysql -u root -p nome_da_sua_database < backend_api/mock_data.sql
 ```
 
-**⚠️ Importante:** 
-- Substitua `nome_da_sua_database` pelo nome que você configurou no arquivo `.env`
-- Execute os comandos na ordem apresentada para evitar erros de foreign key
+**Opção C: Copiar e colar no MySQL**
+- Abra o arquivo `backend_api/mock_data.sql` em um editor de texto
+- Descomente e ajuste as linhas 16-17 se necessário:
+  ```sql
+  CREATE DATABASE IF NOT EXISTS nome_da_sua_database;
+  USE nome_da_sua_database;
+  ```
+- Copie todo o conteúdo
+- Cole no MySQL Workbench ou linha de comando e execute
+
+**📋 O que o script faz:**
+- Cria todas as tabelas necessárias (`livro`, `aluno`, `exemplar`, `emprestimo`)
+- Insere dados de teste:
+  - 15 livros de literatura brasileira
+  - 10 alunos com matrículas e senhas (todas: `senha123`)
+  - Múltiplos exemplares de cada livro com diferentes status
+  - Empréstimos de exemplo (ativos, devolvidos no prazo, devolvidos com atraso)
+
+**🔑 Credenciais de teste:**
+- **Email:** `joao.silva@email.com` até `beatriz.araujo@email.com`
+- **Senha:** `senha123` (para todos os alunos)
+- **Matrículas:** `2024001` até `2024010`
+- **Códigos de barras de exemplares:** `EX001`, `EX002`, `EX003`, etc.
 
 ### 5. Executar o backend
 
@@ -229,6 +213,7 @@ projeto-web/
 │   │   ├── routes/      # Rotas da API
 │   │   ├── db.js        # Configuração do banco
 │   │   └── index.js     # Arquivo principal
+│   ├── mock_data.sql    # Script SQL com tabelas e dados de teste
 │   ├── .env             # Variáveis de ambiente (não commitado)
 │   └── package.json
 │
@@ -242,13 +227,24 @@ projeto-web/
 
 ### Alunos
 - `POST /api/alunos` - Criar novo aluno
+- `POST /api/alunos/login` - Login do aluno
 - `GET /api/alunos` - Listar todos os alunos
+- `GET /api/alunos/ranking` - Buscar ranqueamento de leitura
+- `GET /api/alunos/:id/ranking` - Buscar ranqueamento de um aluno específico
 - `GET /api/alunos/:id` - Buscar aluno por ID
 
 ### Livros
 - `POST /api/livros` - Criar novo livro
 - `GET /api/livros` - Listar todos os livros
+- `GET /api/livros/disponiveis` - Listar livros disponíveis para empréstimo
 - `GET /api/livros/:id` - Buscar livro por ID
+
+### Empréstimos
+- `GET /api/emprestimos/ativos` - Listar empréstimos ativos
+- `GET /api/emprestimos` - Listar todos os empréstimos
+- `GET /api/emprestimos/:id` - Buscar empréstimo por ID
+- `POST /api/emprestimos/retirada` - Realizar retirada de livro
+- `POST /api/emprestimos/devolucao` - Realizar devolução de livro
 
 ## 🛠️ Tecnologias Utilizadas
 
@@ -282,12 +278,33 @@ projeto-web/
 - **Cada projeto frontend precisa de uma porta diferente** se você quiser rodar todos simultaneamente
 - Se rodar apenas um projeto por vez, pode usar a mesma porta (8000) para todos
 
+## 🧪 Dados de Teste
+
+O arquivo `mock_data.sql` já inclui dados de teste prontos para uso:
+
+### Alunos para Login
+- **Email:** `joao.silva@email.com`
+- **Senha:** `senha123`
+- **Matrícula:** `2024001`
+
+Ou use qualquer um dos 10 alunos criados (matrículas de `2024001` a `2024010`, todos com senha `senha123`)
+
+### Códigos de Barras para Autoatendimento
+- **Exemplares disponíveis:** `EX001`, `EX002`, `EX003`, etc.
+- **Exemplares emprestados:** `EX011`, `EX012`, `EX013`, etc. (para testar devolução)
+
+### Exemplos de Uso
+1. **Login no Programa Aluno:** Use `joao.silva@email.com` / `senha123`
+2. **Retirada no Autoatendimento:** Use código `EX001` e matrícula `2024001`
+3. **Devolução no Autoatendimento:** Use código `EX011` (já está emprestado nos dados de teste)
+
 ## ❓ Problemas Comuns
 
 ### Erro de conexão com o banco de dados
 - Verifique se o MySQL está rodando
 - Confirme se as credenciais no `.env` estão corretas
 - Certifique-se de que o banco de dados foi criado
+- Verifique se executou o arquivo `mock_data.sql` corretamente
 
 ### Erro de CORS no frontend
 - O backend já está configurado com CORS
