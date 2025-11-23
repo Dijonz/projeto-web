@@ -98,6 +98,23 @@ const bookController = {
       console.error('Erro ao buscar livros:', err);
       res.status(500).json({ error: 'Erro interno do servidor' });
     }
+  },
+
+  /**
+   * Busca livros disponíveis para empréstimo (com exemplares disponíveis)
+   */
+  async getAvailable(req, res) {
+    try {
+      const livros = await BookModel.findAvailable();
+      res.status(200).json(livros);
+      
+    } catch (err) {
+      console.error('Erro ao buscar livros disponíveis:', err);
+      res.status(500).json({ 
+        error: 'Erro interno do servidor',
+        message: err.message 
+      });
+    }
   }
 };
 

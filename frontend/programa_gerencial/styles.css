@@ -191,8 +191,8 @@ body {
 }
 
 .books-table thead {
-    background-color: #6c757d;
-    color: white;
+    background-color: transparent;
+    color: #333;
 }
 
 .books-table th {
@@ -209,9 +209,132 @@ body {
 }
 
 .books-table tbody tr:hover {
-    background-color: #f8f9fa;
+    background-color: transparent;
 }
 
 .books-table tbody tr:last-child td {
     border-bottom: none;
+}
+
+/* Estilos para status de empréstimos */
+.status-overdue {
+    color: #333;
+    font-weight: bold;
+}
+
+.status-ok {
+    color: #333;
+    font-weight: bold;
+}
+
+/* --- Estilos para Ranqueamento --- */
+.position-cell {
+    text-align: center;
+    font-weight: bold;
+}
+
+.position-badge {
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    border-radius: 50%;
+    background-color: #007bff;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.categoria-badge {
+    display: inline-block;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.categoria-iniciante {
+    background-color: #ffc107;
+    color: #856404;
+}
+
+.categoria-regular {
+    background-color: #17a2b8;
+    color: #ffffff;
+}
+
+.categoria-ativo {
+    background-color: #28a745;
+    color: #ffffff;
+}
+
+.categoria-extremo {
+    background-color: #dc3545;
+    color: #ffffff;
+}
+
+/* Tabela específica para ranking */
+.ranking-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.ranking-table thead {
+    background-color: transparent;
+    color: #333;
+}
+
+.ranking-table th {
+    padding: 12px;
+    text-align: left;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.ranking-table td {
+    padding: 12px;
+    border-bottom: 1px solid #ddd;
+    font-size: 14px;
+}
+
+.ranking-table tbody tr:hover {
+    background-color: transparent;
+}
+
+.ranking-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.ranking-table tbody tr.iniciante .position-badge {
+    background-color: #ffc107;
+}
+
+.ranking-table tbody tr.regular .position-badge {
+    background-color: #17a2b8;
+}
+
+.ranking-table tbody tr.ativo .position-badge {
+    background-color: #28a745;
+}
+
+.ranking-table tbody tr.extremo .position-badge {
+    background-color: #dc3545;
+}
+
+.ranking-table tbody tr:first-child {
+    background-color: #fff3cd;
+    border-left: 4px solid #ffc107;
+}
+
+.ranking-table tbody tr:nth-child(2) {
+    background-color: #d1ecf1;
+    border-left: 4px solid #17a2b8;
+}
+
+.ranking-table tbody tr:nth-child(3) {
+    background-color: #d4edda;
+    border-left: 4px solid #28a745;
 }

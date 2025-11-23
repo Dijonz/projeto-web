@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Biblioteca - Dashboard</title>
+    <title>Biblioteca - Ranqueamento</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -12,9 +12,9 @@
         <h2>BIBLIOTECA</h2>
         <p class="subtitle">Aluno</p>
         <ul>
-            <li><a href="dashboard.html" class="active">Dashboard</a></li>
+            <li><a href="dashboard.html">Dashboard</a></li>
             <li><a href="view_available_books.html">Livros Disponíveis</a></li>
-            <li><a href="view_ranking.html">Ranqueamento</a></li>
+            <li><a href="view_ranking.html" class="active">Ranqueamento</a></li>
         </ul>
         <div class="logout-section">
             <button class="btn-logout" onclick="logout()">Sair</button>
@@ -22,18 +22,17 @@
     </nav>
 
     <main class="content-area">
-        <h1>Dashboard</h1>
+        <h1>Ranqueamento de Leitura</h1>
 
-        <div class="dashboard-wrapper">
-            <div class="welcome-card">
-                <h2>Bem-vindo!</h2>
-                <p>Use o menu lateral para navegar pelas funcionalidades disponíveis.</p>
-            </div>
+        <div class="ranking-wrapper">
+            <div id="loading" class="loading">Carregando ranqueamento...</div>
+            <div id="error" class="error" style="display: none;"></div>
+            <div id="ranking-container" class="ranking-container"></div>
         </div>
     </main>
 
     <script src="logout.js"></script>
-    <script src="dashboard.js"></script>
+    <script src="view_ranking.js"></script>
 </body>
 </html>
 

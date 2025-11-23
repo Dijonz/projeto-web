@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gerencial - Visualizar Livros</title>
+    <title>Gerencial - Empréstimos</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -13,23 +13,23 @@
         <p class="subtitle">Gerenciador</p>
         <ul>
             <li><a href="index.html">Cadastro de Livros</a></li>
-            <li><a href="view_books.html" class="active">Visualizar Livros</a></li>
-            <li><a href="view_loans.html">Empréstimos</a></li>
+            <li><a href="view_books.html">Visualizar Livros</a></li>
+            <li><a href="view_loans.html" class="active">Empréstimos</a></li>
             <li><a href="view_ranking.html">Ranqueamento</a></li>
         </ul>
     </nav>
 
     <main class="content-area">
-        <h1>Visualizar Livros</h1>
+        <h1>Empréstimos Ativos</h1>
 
         <div class="books-wrapper">
-            <div id="loading" class="loading">Carregando livros...</div>
+            <div id="loading" class="loading">Carregando empréstimos...</div>
             <div id="error" class="error" style="display: none;"></div>
-            <div id="books-container" class="books-container"></div>
+            <div id="loans-container" class="books-container"></div>
         </div>
     </main>
 
-    <script src="view_books.js"></script>
+    <script src="view_loans.js"></script>
 </body>
 </html>
 

@@ -86,6 +86,41 @@ const BookModel = {
       console.error('Erro ao verificar ISBN:', error);
       throw error;
     }
+  },
+
+  /**
+   * Busca livros que têm exemplares disponíveis para empréstimo
+   * Um livro está disponível se tem pelo menos um exemplar com status 'disponivel'
+   * e que não está em um empréstimo ativo (data_devolucao_real IS NULL)
+   */
+  async findAvailable() {
+    try {
+      const query = `
+        SELECT DISTINCT
+          l.id_livro,
+          l.titulo,
+          l.autor,
+          l.editora,
+          l.ano_publicacao,
+          l.isbn,
+          COUNT(DISTINCT ex.id_exemplar) as quantidade_disponivel
+        FROM livro l
+        INNER JOIN exemplar ex ON l.id_livro = ex.id_livro
+        LEFT JOIN emprestimo emp ON ex.id_exemplar = emp.id_exemplar 
+          AND emp.data_devolucao_real IS NULL
+        WHERE ex.status = 'disponivel'
+          AND emp.id_emprestimo IS NULL
+        GROUP BY l.id_livro, l.titulo, l.autor, l.editora, l.ano_publicacao, l.isbn
+        HAVING quantidade_disponivel > 0
+        ORDER BY l.titulo ASC
+      `;
+      
+      const [rows] = await pool.execute(query);
+      return rows;
+    } catch (error) {
+      console.error('Erro ao buscar livros disponíveis:', error);
+      throw error;
+    }
   }
 };
 

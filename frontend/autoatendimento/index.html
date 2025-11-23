@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Autoatendimento - Biblioteca</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>BIBLIOTECA</h1>
+            <p class="subtitle">Sistema de Autoatendimento</p>
+        </header>
+
+        <main class="main-content">
+            <!-- Seção de Retirada -->
+            <section class="section-card">
+                <h2>Retirada de Livro</h2>
+                <form id="form-retirada" class="form-autoatendimento">
+                    <div class="input-group">
+                        <label for="codigo-barras-retirada">Código de Barras do Exemplar</label>
+                        <input 
+                            type="text" 
+                            id="codigo-barras-retirada" 
+                            placeholder="Ex: EX001" 
+                            required
+                            autocomplete="off"
+                        >
+                    </div>
+                    <div class="input-group">
+                        <label for="matricula-retirada">Matrícula do Aluno</label>
+                        <input 
+                            type="text" 
+                            id="matricula-retirada" 
+                            placeholder="Ex: 2024001" 
+                            required
+                            autocomplete="off"
+                        >
+                    </div>
+                    <button type="submit" class="btn-primary">Realizar Retirada</button>
+                </form>
+                <div id="mensagem-retirada" class="mensagem"></div>
+            </section>
+
+            <!-- Seção de Devolução -->
+            <section class="section-card">
+                <h2>Devolução de Livro</h2>
+                <form id="form-devolucao" class="form-autoatendimento">
+                    <div class="input-group">
+                        <label for="codigo-barras-devolucao">Código de Barras do Exemplar</label>
+                        <input 
+                            type="text" 
+                            id="codigo-barras-devolucao" 
+                            placeholder="Ex: EX001" 
+                            required
+                            autocomplete="off"
+                        >
+                    </div>
+                    <button type="submit" class="btn-primary">Realizar Devolução</button>
+                </form>
+                <div id="mensagem-devolucao" class="mensagem"></div>
+            </section>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
+
